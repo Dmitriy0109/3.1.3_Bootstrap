@@ -6,7 +6,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 import java.util.List;
 
 public interface UserService {
-    public User findByUserName(String username);
+    public User findByUseremail(String username);
 
     public User getById(int id);
 
@@ -16,5 +16,7 @@ public interface UserService {
 
     public List<User> findAll();
 
-    public void update(User user, int id);
+    public void update(User user);
+
+
 }

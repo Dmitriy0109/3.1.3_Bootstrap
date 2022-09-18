@@ -19,8 +19,8 @@ public class RoleServiceImp implements RoleService {
 
     }
 
-    public Set<Role> getByName(String name) {
-        return roleDao.getByName(name);
+    public Set<Role> getSetOfRoles(String[] roleNames){
+        return roleDao.getSetOfRoles(roleNames);
     }
 
     public Set<Role> findAllRoles() {

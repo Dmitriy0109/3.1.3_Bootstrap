@@ -11,9 +11,11 @@ public interface UserDao {
 
     public User getById(int id);
 
-    public User findByUsername(String username);
+    public User findByUseremail(String email);
 
     public List<User> findAll();
 
     public void update(User user);
+
+
 }

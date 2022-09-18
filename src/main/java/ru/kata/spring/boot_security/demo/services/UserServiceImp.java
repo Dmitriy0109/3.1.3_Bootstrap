@@ -25,21 +25,22 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Transactional
-    public User findByUserName(String username) {
-        return userDao.findByUsername(username);
+    public User findByUseremail(String email) {
+        return userDao.findByUseremail(email);
     }
+
 
     @Transactional
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userDao.findByUseremail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("Takogo usera net!" + username);
+            throw new UsernameNotFoundException("Takogo usera net!" + email);
         }
-        user.getAuthorities().size();
         return user;
     }
 
+    @Transactional
     public User getById(int id) {
         return userDao.getById(id);
     }
@@ -62,12 +63,16 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
 
     @Transactional
-    public void update(User user, int id) {
-        user.setId(id);
-        user.setPassword(user.getPassword() != null && !user.getPassword().trim().equals("") ?
-                passwordEncoder.encode(user.getPassword()) : userDao.getById(id).getPassword());
-        user.setUsername(userDao.getById(id).getUsername());
-        userDao.update(user);
+    public void update(User user) {
+        User user1=userDao.getById(user.getId());
+        if (user.getPassword().equals(user1.getPassword())){
+            userDao.update(user);
+        }else{
+            String pass= passwordEncoder.encode(user.getPassword());
+            user.setPassword(pass);
+            userDao.update(user);
+        }
+
     }
 }
 

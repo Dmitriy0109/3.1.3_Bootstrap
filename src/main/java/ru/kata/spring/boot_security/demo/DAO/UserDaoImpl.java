@@ -31,9 +31,14 @@ public class UserDaoImpl implements UserDao {
         return entityManager.find(User.class,id);
     }
 
-   public User findByUsername(String username){
-       return entityManager.createQuery("SELECT u FROM User u  WHERE u.username = :username", User.class)
-               .setParameter("username", username).getSingleResult();
+   public User findByUseremail(String email){
+        try {
+
+            return entityManager.createQuery("SELECT u FROM User u join fetch u.roles where u.email = :email", User.class)
+                    .setParameter("email", email).getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
    }
 
     public List<User> findAll() {

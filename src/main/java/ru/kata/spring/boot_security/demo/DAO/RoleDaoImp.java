@@ -24,9 +24,17 @@ public class RoleDaoImp implements RoleDao {
         return roleSet;
     }
 
-    public Set<Role>getByName(String name){
-        return entityManager.createQuery("SELECT rol from Role rol WHERE rol.name=:name",Role.class)
-                .setParameter("name",name).getResultStream().collect(Collectors.toSet());
+    public Role getRole(String role){
+        return entityManager.createQuery("select r from Role r where r.name = :role", Role.class)
+                .setParameter("role", role).getSingleResult();
+    }
+    public Set<Role> getSetOfRoles(String[] roleNames) {
+        Set<Role> roleSet = new HashSet<>();
+
+        for (String role : roleNames) {
+            roleSet.add(getRole(role));
+        }
+        return roleSet;
     }
 
 

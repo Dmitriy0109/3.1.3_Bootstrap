@@ -25,10 +25,12 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return getName();
     }
-   // @Transient
-   // private Set<User> users;
+
 
     public Role(String name) {
         this.name = name;
+    }
+    public String toString() {
+        return name.replaceAll("ROLE_", "");
     }
 }
